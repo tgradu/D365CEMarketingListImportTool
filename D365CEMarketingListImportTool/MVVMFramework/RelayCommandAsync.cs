@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace D365CEMarketingListImportTool.MVVMFramework
 {
     public class RelayCommandAsync : ICommand
     {
-        private readonly Func<object, Task> _Execute;
-        private readonly Func<object, bool> _CanExecute;
+        private readonly Func<object, Task> execute;
+        private readonly Func<object, bool> canExecute;
 
         public RelayCommandAsync(Func<object, Task> execute) : this(execute, null)
         {
@@ -23,8 +24,8 @@ namespace D365CEMarketingListImportTool.MVVMFramework
                 throw new ArgumentNullException("execute", "Execute cannot be null.");
             }
 
-            _Execute = execute;
-            _CanExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -35,17 +36,17 @@ namespace D365CEMarketingListImportTool.MVVMFramework
 
         public async void Execute(object parameter)
         {
-            await _Execute(parameter);
+            await execute(parameter);
         }
 
         public bool CanExecute(object parameter)
         {
-            if (_CanExecute == null)
+            if (canExecute == null)
             {
                 return true;
             }
 
-            return _CanExecute(parameter);
+            return canExecute(parameter);
         }
     }
 }

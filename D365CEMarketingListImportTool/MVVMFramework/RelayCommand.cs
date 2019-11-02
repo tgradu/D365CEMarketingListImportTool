@@ -9,8 +9,8 @@ namespace D365CEMarketingListImportTool.MVVMFramework
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action<object> _Execute;
-        private readonly Func<object, bool> _CanExecute;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
 
         public RelayCommand(Action<object> execute)
             : this(execute, null)
@@ -25,8 +25,8 @@ namespace D365CEMarketingListImportTool.MVVMFramework
                 throw new ArgumentNullException("execute", "Execute cannot be null.");
             }
 
-            _Execute = execute;
-            _CanExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -37,17 +37,17 @@ namespace D365CEMarketingListImportTool.MVVMFramework
 
         public void Execute(object parameter)
         {
-            _Execute(parameter);
+            execute(parameter);
         }
 
         public bool CanExecute(object parameter)
         {
-            if (_CanExecute == null)
+            if (canExecute == null)
             {
                 return true;
             }
 
-            return _CanExecute(parameter);
+            return canExecute(parameter);
         }
     }
 }
