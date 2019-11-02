@@ -62,7 +62,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\Password\IPassword.cs" />
     <Compile Include="Services\Xrm\ConnectionDetails.cs" />
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
     <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
@@ -105,6 +104,9 @@
     <PackageReference Include="Microsoft.CrmSdk.XrmTooling.CoreAssembly">
       <Version>9.1.0.21</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

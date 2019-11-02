@@ -13,7 +13,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
         public string ConvertToUnsecureString(SecureString _password)
         {
             if (_password == null)
-                throw new ArgumentNullException("securePassword");
+                throw new ArgumentNullException(typeof(SecureString).Name);
 
             IntPtr unmanagedString = IntPtr.Zero;
             try

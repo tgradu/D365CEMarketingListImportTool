@@ -1,5 +1,4 @@
-﻿using D365CEMarketingListImportTool.Controls.Password;
-using D365CEMarketingListImportTool.MVVMFramework;
+﻿using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Xrm;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
