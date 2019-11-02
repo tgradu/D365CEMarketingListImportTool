@@ -12,8 +12,7 @@ namespace D365CEMarketingListImportTool.MVVMFramework
         private readonly Action<object> execute;
         private readonly Func<object, bool> canExecute;
 
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
+        public RelayCommand(Action<object> execute) : this(execute, null)
         {
 
         }
