@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:D365CEMarketingListImportTool.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="419">
+        Title="Login" Height="300" Width="419">
     <Window.DataContext>
         <local:LoginWindowViewModel />
     </Window.DataContext>
@@ -16,8 +16,10 @@
         <Label Content="Password" HorizontalAlignment="Left" Margin="32,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,-1.261" Width="89"/>
         <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="140,136,0,0" VerticalAlignment="Top" Width="248" Height="22"/>
         <Label Content="D365 CE Url" HorizontalAlignment="Left" Margin="32,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,-1.261" Width="89"/>
-        <TextBox x:Name="D365CEUrl" HorizontalAlignment="Left" VerticalAlignment="Top" Width="248" Height="22" Margin="140,80,0,0" TextWrapping="Wrap" />
-        <Button Content="Login" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top" Width="137" Height="42"/>
-
+        <TextBox x:Name="D365CEUrl" HorizontalAlignment="Left" VerticalAlignment="Top" Width="248" Height="22" Margin="140,80,0,0" TextWrapping="Wrap" 
+                 Text="{Binding D365CEUrl}"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top" Width="137" Height="42" 
+                Command="{Binding LoginCommand}" 
+                CommandParameter="{Binding ElementName=Password}" />
     </Grid>
 </Window>

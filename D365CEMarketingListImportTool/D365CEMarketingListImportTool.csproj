@@ -63,7 +63,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\Password\IPassword.cs" />
-    <Compile Include="Services\Xrm\XrmConnection.cs" />
+    <Compile Include="Services\Xrm\ConnectionDetails.cs" />
+    <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
+    <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
+    <Compile Include="Services\Xrm\PasswordConverter.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -98,6 +101,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.XrmTooling.CoreAssembly">
+      <Version>9.1.0.21</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
