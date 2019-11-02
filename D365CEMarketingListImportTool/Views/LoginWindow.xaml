@@ -13,7 +13,7 @@
         <TextBox x:Name="UserName" HorizontalAlignment="Left" VerticalAlignment="Top" Width="248" Height="22" Margin="140,108,0,0" TextWrapping="Wrap" />
         <Label Content="User Name" HorizontalAlignment="Left" Margin="32,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,-1.261" Width="89"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="32,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,-1.261" Width="89"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="140,136,0,0" VerticalAlignment="Top" Width="248" Height="22"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="140,136,0,0" VerticalAlignment="Top" Width="248" Height="22"/>
         <Label Content="D365 CE Url" HorizontalAlignment="Left" Margin="32,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,-1.261" Width="89"/>
         <TextBox x:Name="D365CEUrl" HorizontalAlignment="Left" VerticalAlignment="Top" Width="248" Height="22" Margin="140,80,0,0" TextWrapping="Wrap" />
         <Button Content="Login" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top" Width="137" Height="42"/>

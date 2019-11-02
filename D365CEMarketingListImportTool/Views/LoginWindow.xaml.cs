@@ -1,6 +1,8 @@
-﻿using System;
+﻿using D365CEMarketingListImportTool.Controls.Password;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +20,19 @@ namespace D365CEMarketingListImportTool
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : Window, IPassword
     {
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        public SecureString PasswordValue
+        {
+            get
+            {
+                return Password.SecurePassword;
+            }
         }
     }
 }
