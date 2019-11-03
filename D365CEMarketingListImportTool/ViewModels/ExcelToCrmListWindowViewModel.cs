@@ -1,4 +1,5 @@
 ﻿using D365CEMarketingListImportTool.Services.Xrm;
+using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,16 +16,27 @@ namespace D365CEMarketingListImportTool.ViewModels
         #region Fields
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
-        private readonly XrmContext xrmContext;
+        private CrmServiceClient crmServiceClient;
+        private string loggedUser;
+
         #endregion Fields
 
         #region Properties
+        public string LoggedUser
+        {
+            get => loggedUser;
+            set
+            {
+                loggedUser = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Constructors
-        public ExcelToCrmListWindowViewModel(XrmContext xrmContext)
+        public ExcelToCrmListWindowViewModel()
         {
-            this.xrmContext = xrmContext;
+            
         }
         #endregion Constructors
 
@@ -39,6 +51,13 @@ namespace D365CEMarketingListImportTool.ViewModels
             // parameter causes the property name of the caller to be substituted as an argument.
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void SetXrmContext(XrmContext xrmContext)
+        {
+            crmServiceClient = xrmContext.CrmServiceClient;
+            LoggedUser = xrmContext.LoggedUser;
+
         }
         #endregion Methods
 

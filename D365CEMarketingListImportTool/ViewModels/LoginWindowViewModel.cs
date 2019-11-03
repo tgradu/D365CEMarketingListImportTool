@@ -42,10 +42,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         #region Commands
         public ICommand LoginCommand
         {
-            get
-            {
-                return new RelayCommandAsync(BuildCrmConnectionAsync);
-            }
+            get => new RelayCommandAsync(BuildCrmConnectionAsync);
         }
 
 
@@ -86,7 +83,8 @@ namespace D365CEMarketingListImportTool.ViewModels
             XrmContextBuilder xrmContextBuilder = new XrmContextBuilder(crmServiceClient);
             XrmContext xrmContext = await xrmContextBuilder.BuildAsync();
 
-            var excelToCrmListWindowModel = new ExcelToCrmListWindowViewModel(xrmContext);
+            var excelToCrmListWindowModel = new ExcelToCrmListWindowViewModel();
+            excelToCrmListWindowModel.SetXrmContext(xrmContext);
             ExcelToCrmListWindow excelToCrmListWindow = new ExcelToCrmListWindow();
             excelToCrmListWindow.DataContext = excelToCrmListWindowModel;
 
