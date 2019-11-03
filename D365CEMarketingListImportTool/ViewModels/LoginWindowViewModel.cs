@@ -64,13 +64,14 @@ namespace D365CEMarketingListImportTool.ViewModels
 
             if (crmServiceClient.IsReady)
             {
-                LaunchExcelToMarketingListModule(crmServiceClient);
+                await LaunchExcelToMarketingListModule(crmServiceClient);
             }
         }
 
-        private void LaunchExcelToMarketingListModule(CrmServiceClient crmServiceClient)
+        private async Task LaunchExcelToMarketingListModule(CrmServiceClient crmServiceClient)
         {
-            throw new NotImplementedException();
+            XrmContextBuilder xrmContextBuilder = new XrmContextBuilder(crmServiceClient);
+            XrmContext xrmContext = await xrmContextBuilder.Build();
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")

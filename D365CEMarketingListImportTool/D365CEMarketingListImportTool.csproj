@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\ExcelToCrmListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +73,9 @@
     <Compile Include="Services\Xrm\XrmContext.cs" />
     <Compile Include="Services\Xrm\XrmContextBuilder.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
+    <Compile Include="Views\ExcelToCrmListWindow.xaml.cs">
+      <DependentUpon>ExcelToCrmListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
