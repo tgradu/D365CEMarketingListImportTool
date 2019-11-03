@@ -66,6 +66,8 @@
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
     <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
     <Compile Include="Services\Xrm\PasswordConverter.cs" />
+    <Compile Include="Services\Xrm\XrmContext.cs" />
+    <Compile Include="Services\Xrm\XrmContextBuilder.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>

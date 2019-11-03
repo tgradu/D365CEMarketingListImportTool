@@ -62,6 +62,15 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClientBuilder = new Office365ConnectionBuilder();
             CrmServiceClient crmServiceClient = await crmServiceClientBuilder.Build(connectionDetails);
 
+            if (crmServiceClient.IsReady)
+            {
+                LaunchExcelToMarketingListModule(crmServiceClient);
+            }
+        }
+
+        private void LaunchExcelToMarketingListModule(CrmServiceClient crmServiceClient)
+        {
+            throw new NotImplementedException();
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
