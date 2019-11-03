@@ -19,13 +19,13 @@ namespace D365CEMarketingListImportTool.Services.Xrm
             this.crmServiceClient = crmServiceClient;
         }
 
-        public async Task<XrmContext> Build()
+        public async Task<XrmContext> BuildAsync()
         {
-            string loggedInUser = await GetLoggedInUser(crmServiceClient);
+            string loggedInUser = await GetLoggedInUserAsync(crmServiceClient);
             return new XrmContext(crmServiceClient, loggedInUser);
         }
 
-        private async Task<string> GetLoggedInUser(CrmServiceClient crmServiceClient)
+        private async Task<string> GetLoggedInUserAsync(CrmServiceClient crmServiceClient)
         {
             var whoAmIResponse = await Task.Run(() => (WhoAmIResponse)crmServiceClient.Execute(new WhoAmIRequest()));
             Entity loggedInUser = await Task.Run(() => crmServiceClient.Retrieve("systemuser", whoAmIResponse.UserId, new ColumnSet("fullname")));

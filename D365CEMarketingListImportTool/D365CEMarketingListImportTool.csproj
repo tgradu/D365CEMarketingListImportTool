@@ -66,12 +66,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Login\ILogin.cs" />
     <Compile Include="Services\Xrm\ConnectionDetails.cs" />
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
     <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
     <Compile Include="Services\Xrm\PasswordConverter.cs" />
     <Compile Include="Services\Xrm\XrmContext.cs" />
     <Compile Include="Services\Xrm\XrmContextBuilder.cs" />
+    <Compile Include="ViewModels\ExcelToCrmListWindowViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="Views\ExcelToCrmListWindow.xaml.cs">
       <DependentUpon>ExcelToCrmListWindow.xaml</DependentUpon>

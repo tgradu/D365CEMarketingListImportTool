@@ -17,7 +17,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
             passwordConverter = new PasswordConverter();
         }
 
-        public async Task<CrmServiceClient> Build(ConnectionDetails connectionDetails)
+        public async Task<CrmServiceClient> BuildAsync(ConnectionDetails connectionDetails)
         {
             return await Task.Run(() => new CrmServiceClient($"Url={connectionDetails.Url};AuthType={authType};UserName={connectionDetails.UserName};Password={passwordConverter.ConvertToUnsecureString(connectionDetails.Password)}"));
         }

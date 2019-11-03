@@ -10,6 +10,6 @@ namespace D365CEMarketingListImportTool.Services.Xrm
 {
     interface ICrmServiceClientBuilder
     {
-        Task<CrmServiceClient> Build(ConnectionDetails connectionDetails);
+        Task<CrmServiceClient> BuildAsync(ConnectionDetails connectionDetails);
     }
 }

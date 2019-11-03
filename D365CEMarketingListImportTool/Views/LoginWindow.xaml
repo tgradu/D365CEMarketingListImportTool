@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:D365CEMarketingListImportTool.ViewModels"
         mc:Ignorable="d"
+        x:Name="This"
         Title="Login" Height="300" Width="419">
     <Window.DataContext>
         <local:LoginWindowViewModel />
@@ -20,6 +21,6 @@
                  Text="{Binding D365CEUrl}"/>
         <Button Content="Login" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top" Width="137" Height="42" 
                 Command="{Binding LoginCommand}" 
-                CommandParameter="{Binding ElementName=Password}" />
+                CommandParameter="{Binding ElementName=This}" />
     </Grid>
 </Window>

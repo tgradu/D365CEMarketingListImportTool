@@ -1,5 +1,7 @@
 ﻿using D365CEMarketingListImportTool.MVVMFramework;
+using D365CEMarketingListImportTool.Services.Login;
 using D365CEMarketingListImportTool.Services.Xrm;
+using D365CEMarketingListImportTool.Views;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
@@ -16,10 +18,10 @@ namespace D365CEMarketingListImportTool.ViewModels
 {
     public class LoginWindowViewModel : INotifyPropertyChanged
     {
-        [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #region Fields
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
         private ICrmServiceClientBuilder crmServiceClientBuilder;
         #endregion Fields
 
@@ -42,7 +44,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         {
             get
             {
-                return new RelayCommandAsync(BuildCrmConnection);
+                return new RelayCommandAsync(BuildCrmConnectionAsync);
             }
         }
 
@@ -50,28 +52,46 @@ namespace D365CEMarketingListImportTool.ViewModels
         #endregion Commands
 
         #region Methods
-        private async Task BuildCrmConnection(object parameter)
+        private async Task BuildCrmConnectionAsync(object parameter)
+        {
+            if (!(parameter is ILogin))
+            {
+                throw new ArgumentException(nameof(ILogin));
+            }
+
+            var login = parameter as ILogin;
+            await BuildCrmConnectionInternalAsync(login);
+        }
+
+        private async Task BuildCrmConnectionInternalAsync(ILogin login)
         {
             var connectionDetails = new ConnectionDetails
             {
                 UserName = this.UserName,
                 Url = D365CEUrl,
-                Password = ((PasswordBox)parameter).SecurePassword
+                Password = login.PasswordValue
             };
 
             crmServiceClientBuilder = new Office365ConnectionBuilder();
-            CrmServiceClient crmServiceClient = await crmServiceClientBuilder.Build(connectionDetails);
+            CrmServiceClient crmServiceClient = await crmServiceClientBuilder.BuildAsync(connectionDetails);
 
             if (crmServiceClient.IsReady)
             {
-                await LaunchExcelToMarketingListModule(crmServiceClient);
+                await LaunchExcelToMarketingListModuleAsync(crmServiceClient, login);
             }
         }
 
-        private async Task LaunchExcelToMarketingListModule(CrmServiceClient crmServiceClient)
+        private async Task LaunchExcelToMarketingListModuleAsync(CrmServiceClient crmServiceClient, ILogin login)
         {
             XrmContextBuilder xrmContextBuilder = new XrmContextBuilder(crmServiceClient);
-            XrmContext xrmContext = await xrmContextBuilder.Build();
+            XrmContext xrmContext = await xrmContextBuilder.BuildAsync();
+
+            var excelToCrmListWindowModel = new ExcelToCrmListWindowViewModel(xrmContext);
+            ExcelToCrmListWindow excelToCrmListWindow = new ExcelToCrmListWindow();
+            excelToCrmListWindow.DataContext = excelToCrmListWindowModel;
+
+            excelToCrmListWindow.Show();
+            login.Close();
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
