@@ -16,7 +16,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         #region Fields
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
-        private CrmServiceClient crmServiceClient;
+        private readonly CrmServiceClient crmServiceClient;
         private string loggedUser;
 
         #endregion Fields
@@ -34,9 +34,10 @@ namespace D365CEMarketingListImportTool.ViewModels
         #endregion Properties
 
         #region Constructors
-        public ExcelToCrmListWindowViewModel()
+        public ExcelToCrmListWindowViewModel(XrmContext xrmContext)
         {
-            
+            crmServiceClient = xrmContext.CrmServiceClient;
+            LoggedUser = xrmContext.LoggedUser;
         }
         #endregion Constructors
 
@@ -53,12 +54,6 @@ namespace D365CEMarketingListImportTool.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void SetXrmContext(XrmContext xrmContext)
-        {
-            crmServiceClient = xrmContext.CrmServiceClient;
-            LoggedUser = xrmContext.LoggedUser;
-
-        }
         #endregion Methods
 
 
