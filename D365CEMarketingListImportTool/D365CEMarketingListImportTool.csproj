@@ -73,6 +73,7 @@
     <Compile Include="Services\Xrm\PasswordConverter.cs" />
     <Compile Include="Services\Xrm\XrmContext.cs" />
     <Compile Include="Services\Xrm\XrmContextBuilder.cs" />
+    <Compile Include="UIMessages\LoginWindowMessages.cs" />
     <Compile Include="ViewModels\ExcelToCrmListWindowViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="Views\ExcelToCrmListWindow.xaml.cs">

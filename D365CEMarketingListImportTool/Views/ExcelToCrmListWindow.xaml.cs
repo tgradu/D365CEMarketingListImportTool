@@ -23,5 +23,10 @@ namespace D365CEMarketingListImportTool.Views
         {
             InitializeComponent();
         }
+
+        public ExcelToCrmListWindow(object dataContext) : this()
+        {
+            this.DataContext = dataContext;
+        }
     }
 }

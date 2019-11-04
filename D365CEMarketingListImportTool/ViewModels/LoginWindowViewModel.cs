@@ -1,6 +1,7 @@
 ﻿using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Login;
 using D365CEMarketingListImportTool.Services.Xrm;
+using D365CEMarketingListImportTool.UIMessages;
 using D365CEMarketingListImportTool.Views;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
@@ -27,6 +28,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private ICrmServiceClientBuilder crmServiceClientBuilder;
         private string loginStatus;
+        private bool isLoginEnabled;
         #endregion Fields
 
         #region Properties
@@ -39,6 +41,16 @@ namespace D365CEMarketingListImportTool.ViewModels
             set
             {
                 loginStatus = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsLoginEnabled
+        {
+            get => isLoginEnabled;
+            set
+            {
+                isLoginEnabled = value;
                 NotifyPropertyChanged();
             }
         }
@@ -65,10 +77,13 @@ namespace D365CEMarketingListImportTool.ViewModels
         #region Methods
         public void InitializWindow()
         {
-            LoginStatus = "Welcome to the Excel to Marketing List Import tool. Please enter the URL to your instance together with the credentials to log in.";
+            LoginStatus = LoginWindowMessages.WelcomeMessage;
+            IsLoginEnabled = true;
         }
         private async Task BuildCrmConnectionAsync(object parameter)
         {
+            IsLoginEnabled = false;
+
             if (!(parameter is ILogin))
             {
                 throw new ArgumentException(nameof(ILogin));
@@ -80,7 +95,7 @@ namespace D365CEMarketingListImportTool.ViewModels
 
         private async Task BuildCrmConnectionInternalAsync(ILogin login)
         {
-            LoginStatus = "Connecting... Please wait.";
+            LoginStatus = LoginWindowMessages.ConnectingMessage;
 
             var connectionDetails = new ConnectionDetails
             {
@@ -96,15 +111,17 @@ namespace D365CEMarketingListImportTool.ViewModels
 
                 if (crmServiceClient.IsReady)
                 {
-                    LoginStatus = "Connected. Initializing Components";
+                    LoginStatus = LoginWindowMessages.ConnectedMessage;
                     await LaunchExcelToMarketingListModuleAsync(crmServiceClient, login);
                 }
 
-                LoginStatus = "Unable to connect to CRM. Please check your credentials and try again";
+                LoginStatus = LoginWindowMessages.CredentialsError;
+                IsLoginEnabled = true;
             }
             catch(Exception ex)
             {
-                LoginStatus = "There was an error during connection. Please check the log files for more details";
+                LoginStatus = LoginWindowMessages.ConnectionError;
+                IsLoginEnabled = true;
             }
 
         }
@@ -115,8 +132,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             XrmContext xrmContext = await xrmContextBuilder.BuildAsync();
 
             var excelToCrmListWindowModel = new ExcelToCrmListWindowViewModel(xrmContext);
-            ExcelToCrmListWindow excelToCrmListWindow = new ExcelToCrmListWindow();
-            excelToCrmListWindow.DataContext = excelToCrmListWindowModel;
+            ExcelToCrmListWindow excelToCrmListWindow = new ExcelToCrmListWindow(excelToCrmListWindowModel);
 
             excelToCrmListWindow.Show();
             login.Close();
