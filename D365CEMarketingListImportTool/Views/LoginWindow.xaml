@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:D365CEMarketingListImportTool.ViewModels"
         mc:Ignorable="d"
         x:Name="This"
-        Title="Login" Height="300" Width="419">
+        Title="Login" MaxHeight="300" MaxWidth="420">
     <Window.DataContext>
         <local:LoginWindowViewModel />
     </Window.DataContext>
