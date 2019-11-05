@@ -1,4 +1,6 @@
-﻿using D365CEMarketingListImportTool.Services.Xrm;
+﻿using D365CEMarketingListImportTool.MVVMFramework;
+using D365CEMarketingListImportTool.Services.Xrm;
+using Microsoft.Win32;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace D365CEMarketingListImportTool.ViewModels
 {
@@ -54,9 +57,33 @@ namespace D365CEMarketingListImportTool.ViewModels
         #endregion Constructors
 
         #region Commands
+        public ICommand LoadExcelCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadExcel);
+            }
+        }
+
         #endregion Commands
 
         #region Methods
+
+        private void LoadExcel(object obj)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "XLSX Files (*.xlsx)|*.xlsx|XLS Files(*.xls)|*.xls";
+
+            try
+            {
+                dlg.ShowDialog();
+             }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
         {
             // This method is called by the Set accessor of each property.
