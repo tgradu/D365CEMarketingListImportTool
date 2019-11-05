@@ -18,6 +18,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly CrmServiceClient crmServiceClient;
         private string loggedUser;
+        private string connectedTo;
 
         #endregion Fields
 
@@ -31,6 +32,16 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public string ConnectedTo
+        {
+            get => connectedTo;
+            set
+            {
+                connectedTo = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Constructors
@@ -38,6 +49,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         {
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
+            ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
         }
         #endregion Constructors
 
