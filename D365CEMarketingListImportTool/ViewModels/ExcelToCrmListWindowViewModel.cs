@@ -1,4 +1,5 @@
 ﻿using D365CEMarketingListImportTool.MVVMFramework;
+using D365CEMarketingListImportTool.Services.Excel;
 using D365CEMarketingListImportTool.Services.Xrm;
 using Microsoft.Win32;
 using Microsoft.Xrm.Tooling.Connector;
@@ -22,6 +23,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private readonly CrmServiceClient crmServiceClient;
         private string loggedUser;
         private string connectedTo;
+        private MarketingExcel marketingExcel;
 
         #endregion Fields
 
@@ -71,19 +73,20 @@ namespace D365CEMarketingListImportTool.ViewModels
 
         private void LoadExcel(object obj)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "XLSX Files (*.xlsx)|*.xlsx|XLS Files(*.xls)|*.xls";
+            Loader excelLoader = new Loader();
+            marketingExcel = excelLoader.Load();
 
-            try
-            {
-                dlg.ShowDialog();
-             }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            InitializeExcelControlls(marketingExcel);
         }
+
+        private void InitializeExcelControlls(MarketingExcel marketingExcel)
+        {
+            //ToDo
+            //Path
+            //Dropdown list with headers
+            throw new NotImplementedException();
+        }
+
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
         {
             // This method is called by the Set accessor of each property.

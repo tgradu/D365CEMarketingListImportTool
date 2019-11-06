@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:D365CEMarketingListImportTool.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="ExcelToCrmListWindow" Height="450" Width="800">
     <Grid>
@@ -14,16 +15,18 @@
         <Label Content="Connected As" HorizontalAlignment="Left" Margin="489,51,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="LoggedUser" HorizontalAlignment="Left" Height="23" Margin="594,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" 
                  Text="{Binding LoggedUser}"/>
-        <Image HorizontalAlignment="Left" Height="127" Margin="10,-9,0,0" VerticalAlignment="Top" Width="300"
+        <Image HorizontalAlignment="Left" Height="127" Margin="12,-9,0,0" VerticalAlignment="Top" Width="298"
                Source="/Images/D365Logo.png"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="10,118,0,0" VerticalAlignment="Top" Width="112"
-               Source="/Images/ExcelLogo.png"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="152,118,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="352"/>
-        <Button HorizontalAlignment="Left" Margin="504,118,0,0" VerticalAlignment="Top" Width="30" Height="30"
+        <Button HorizontalAlignment="Left" Margin="12,122,0,0" VerticalAlignment="Top" Width="120" Height="40"
                 Command="{Binding LoadExcelCommand}">
             <StackPanel>
-                <Image Source="/Images/Lookup.jpg" Height="29" Width="29" />
+                <Image Source="/Images/ExcelLogo.png" />
             </StackPanel>
         </Button>
+        <TextBox HorizontalAlignment="Left" Height="39" Margin="148,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="634" FontSize="22"
+            x:Name="FilePath"
+            IsReadOnly="True"
+            Text="{Binding ExcelPath}">
+           </TextBox>
     </Grid>
 </Window>
