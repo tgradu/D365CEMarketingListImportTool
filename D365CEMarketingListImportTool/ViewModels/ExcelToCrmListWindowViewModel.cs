@@ -23,6 +23,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private readonly CrmServiceClient crmServiceClient;
         private string loggedUser;
         private string connectedTo;
+        private string excelPath;
         private MarketingExcel marketingExcel;
 
         #endregion Fields
@@ -37,7 +38,6 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
         public string ConnectedTo
         {
             get => connectedTo;
@@ -47,6 +47,16 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
+        public string ExcelPath
+        {
+            get => excelPath;
+            set
+            {
+                excelPath = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         #endregion Properties
 
         #region Constructors
@@ -83,8 +93,9 @@ namespace D365CEMarketingListImportTool.ViewModels
         {
             //ToDo
             //Path
+            ExcelPath = marketingExcel.Path;
             //Dropdown list with headers
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
