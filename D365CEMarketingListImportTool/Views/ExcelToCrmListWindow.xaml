@@ -29,6 +29,11 @@
             x:Name="FilePath"
             IsReadOnly="True"
             Text="{Binding ExcelPath}">
-           </TextBox>
+        </TextBox>
+        <ComboBox x:Name="FromExcelColumn" HorizontalAlignment="Left" Margin="256,231,0,0" VerticalAlignment="Top" Width="120"
+            ItemsSource ="{Binding ExcelColumns}" 
+            SelectedItem="{Binding SelectedExcelColumn}" 
+            DisplayMemberPath="Name"   />
+        <Label Content="From Excel Column" HorizontalAlignment="Left" Margin="256,200,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

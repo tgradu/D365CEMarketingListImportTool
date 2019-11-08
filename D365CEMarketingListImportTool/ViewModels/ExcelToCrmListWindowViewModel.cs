@@ -1,10 +1,12 @@
-﻿using D365CEMarketingListImportTool.MVVMFramework;
+﻿using D365CEMarketingListImportTool.Controls;
+using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Excel;
 using D365CEMarketingListImportTool.Services.Xrm;
 using Microsoft.Win32;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +27,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private string connectedTo;
         private string excelPath;
         private MarketingExcel marketingExcel;
+        private FromExcelColumn selectedExcelColumn;
 
         #endregion Fields
 
@@ -56,6 +59,16 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
+        public ObservableCollection<FromExcelColumn> ExcelColumns { get; set; }
+        public FromExcelColumn SelectedExcelColumn
+        {
+            get => selectedExcelColumn;
+            set
+            {
+                selectedExcelColumn = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion Properties
 
@@ -65,6 +78,8 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
+
+            ExcelColumns = new ObservableCollection<FromExcelColumn>();
         }
         #endregion Constructors
 
@@ -94,8 +109,16 @@ namespace D365CEMarketingListImportTool.ViewModels
             //ToDo
             //Path
             ExcelPath = marketingExcel.Path;
-            //Dropdown list with headers
-            //throw new NotImplementedException();
+
+            IEnumerable<FromExcelColumn> columns = marketingExcel.ColumnHeaders.Select(header => new FromExcelColumn(header));
+            foreach(FromExcelColumn excelColumn in columns)
+            {
+                ExcelColumns.Add(excelColumn);
+            }
+
+            SelectedExcelColumn = ExcelColumns.FirstOrDefault();
+
+            var ceva = crmServiceClient.GetPickListElementFromMetadataEntity("list", "createdfromcode");
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")

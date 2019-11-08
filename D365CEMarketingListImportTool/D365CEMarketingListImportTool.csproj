@@ -67,11 +67,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\FromExcelColumn.cs" />
+    <Compile Include="Controls\TargetedEntity.cs" />
     <Compile Include="Services\Excel\Loader.cs" />
     <Compile Include="Services\Excel\MarketingExcel.cs" />
     <Compile Include="Services\Login\ILogin.cs" />
     <Compile Include="Services\Xrm\ConnectionDetails.cs" />
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
+    <Compile Include="Services\Xrm\MetaDataProvider.cs" />
     <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
     <Compile Include="Services\Xrm\PasswordConverter.cs" />
     <Compile Include="Services\Xrm\XrmContext.cs" />
@@ -127,9 +130,7 @@
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\D365Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
