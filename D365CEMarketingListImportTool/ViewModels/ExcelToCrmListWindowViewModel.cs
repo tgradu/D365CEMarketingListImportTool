@@ -3,6 +3,8 @@ using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Excel;
 using D365CEMarketingListImportTool.Services.Xrm;
 using Microsoft.Win32;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
@@ -117,8 +119,6 @@ namespace D365CEMarketingListImportTool.ViewModels
             }
 
             SelectedExcelColumn = ExcelColumns.FirstOrDefault();
-
-            var ceva = crmServiceClient.GetPickListElementFromMetadataEntity("list", "createdfromcode");
         }
 
         private void NotifyPropertyChanged([CallerMemberName]String propertyName = "")

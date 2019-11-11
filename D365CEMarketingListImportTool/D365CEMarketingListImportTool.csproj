@@ -68,13 +68,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\FromExcelColumn.cs" />
-    <Compile Include="Controls\TargetedEntity.cs" />
+    <Compile Include="Controls\TargetedEntityMetaData.cs" />
     <Compile Include="Services\Excel\Loader.cs" />
     <Compile Include="Services\Excel\MarketingExcel.cs" />
     <Compile Include="Services\Login\ILogin.cs" />
     <Compile Include="Services\Xrm\ConnectionDetails.cs" />
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
-    <Compile Include="Services\Xrm\MetaDataProvider.cs" />
+    <Compile Include="Services\Xrm\MarketingEntitiesMetadataProvider.cs" />
     <Compile Include="Services\Xrm\Office365ConnectionBuilder.cs" />
     <Compile Include="Services\Xrm\PasswordConverter.cs" />
     <Compile Include="Services\Xrm\XrmContext.cs" />
