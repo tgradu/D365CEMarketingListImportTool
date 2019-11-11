@@ -1,11 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace D365CEMarketingListImportTool.Controls
+﻿namespace D365CEMarketingListImportTool.Controls
 {
     public class TargetedEntityMetaData
     {

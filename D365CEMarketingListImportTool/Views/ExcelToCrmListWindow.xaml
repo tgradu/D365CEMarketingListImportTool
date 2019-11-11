@@ -30,10 +30,21 @@
             IsReadOnly="True"
             Text="{Binding ExcelPath}">
         </TextBox>
-        <ComboBox x:Name="FromExcelColumn" HorizontalAlignment="Left" Margin="256,231,0,0" VerticalAlignment="Top" Width="120"
+        <ComboBox x:Name="FromExcelColumn" HorizontalAlignment="Left" Margin="24,236,0,0" VerticalAlignment="Top" Width="120"
             ItemsSource ="{Binding ExcelColumns}" 
             SelectedItem="{Binding SelectedExcelColumn}" 
-            DisplayMemberPath="Name"   />
-        <Label Content="From Excel Column" HorizontalAlignment="Left" Margin="256,200,0,0" VerticalAlignment="Top" Width="120"/>
+            DisplayMemberPath="Name"/>
+        <Label Content="From Excel Column" HorizontalAlignment="Left" Margin="24,205,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Margin="206,236,0,0" VerticalAlignment="Top" Width="120"
+            ItemsSource ="{Binding Path=MarketingListEntities}" 
+            SelectedItem="{Binding Path=SelectedMarketingListEntity}" 
+            DisplayMemberPath="LocalizedLabel">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding FetchEntityAttributesCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <Label Content="To CRM Entity" HorizontalAlignment="Left" Margin="226,205,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1,0.5"/>
     </Grid>
 </Window>

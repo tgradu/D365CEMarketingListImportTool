@@ -5,14 +5,9 @@ using D365CEMarketingListImportTool.UIMessages;
 using D365CEMarketingListImportTool.Views;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace D365CEMarketingListImportTool.ViewModels

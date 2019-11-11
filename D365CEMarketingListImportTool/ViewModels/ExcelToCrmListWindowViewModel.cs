@@ -2,9 +2,6 @@
 using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Excel;
 using D365CEMarketingListImportTool.Services.Xrm;
-using Microsoft.Win32;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
@@ -12,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -29,7 +25,11 @@ namespace D365CEMarketingListImportTool.ViewModels
         private string connectedTo;
         private string excelPath;
         private MarketingExcel marketingExcel;
+
         private FromExcelColumn selectedExcelColumn;
+        private TargetedEntityMetaData selectedMarketingListEntity;
+
+        private readonly Loader excelLoader = new Loader();
 
         #endregion Fields
 
@@ -61,13 +61,23 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public ObservableCollection<FromExcelColumn> ExcelColumns { get; set; }
+        public ObservableCollection<FromExcelColumn> ExcelColumns { get; set; } = new ObservableCollection<FromExcelColumn>();
         public FromExcelColumn SelectedExcelColumn
         {
             get => selectedExcelColumn;
             set
             {
                 selectedExcelColumn = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public ObservableCollection<TargetedEntityMetaData> MarketingListEntities { get; set; } = new ObservableCollection<TargetedEntityMetaData>();
+        public TargetedEntityMetaData SelectedMarketingListEntity
+        {
+            get => selectedMarketingListEntity;
+            set
+            {
+                selectedMarketingListEntity = value;
                 NotifyPropertyChanged();
             }
         }
@@ -80,9 +90,9 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
-
-            ExcelColumns = new ObservableCollection<FromExcelColumn>();
+            InitializeViewControlls();
         }
+
         #endregion Constructors
 
         #region Commands
@@ -93,6 +103,13 @@ namespace D365CEMarketingListImportTool.ViewModels
                 return new RelayCommand(LoadExcel);
             }
         }
+        public ICommand FetchEntityAttributesCommand
+        {
+            get
+            {
+                return new RelayCommandAsync(FetchEntityAttributes);
+            }
+        }
 
         #endregion Commands
 
@@ -100,19 +117,27 @@ namespace D365CEMarketingListImportTool.ViewModels
 
         private void LoadExcel(object obj)
         {
-            Loader excelLoader = new Loader();
             marketingExcel = excelLoader.Load();
-
             InitializeExcelControlls(marketingExcel);
+        }
+
+        private Task FetchEntityAttributes(object obj)
+        {
+            return Task.CompletedTask;
+            //throw new NotImplementedException();
+        }
+
+        private async void InitializeViewControlls()
+        {
+            throw new NotImplementedException();
         }
 
         private void InitializeExcelControlls(MarketingExcel marketingExcel)
         {
-            //ToDo
-            //Path
             ExcelPath = marketingExcel.Path;
 
             IEnumerable<FromExcelColumn> columns = marketingExcel.ColumnHeaders.Select(header => new FromExcelColumn(header));
+            
             foreach(FromExcelColumn excelColumn in columns)
             {
                 ExcelColumns.Add(excelColumn);
