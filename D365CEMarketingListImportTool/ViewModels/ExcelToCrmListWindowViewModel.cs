@@ -90,7 +90,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
-            InitializeViewControlls();
+            InitializeViewControls();
         }
 
         #endregion Constructors
@@ -127,7 +127,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             //throw new NotImplementedException();
         }
 
-        private async void InitializeViewControlls()
+        private async void InitializeViewControls()
         {
             throw new NotImplementedException();
         }
