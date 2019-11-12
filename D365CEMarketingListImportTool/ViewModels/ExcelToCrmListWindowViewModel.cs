@@ -90,7 +90,6 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
-            InitializeViewControls();
         }
 
         #endregion Constructors
@@ -111,6 +110,16 @@ namespace D365CEMarketingListImportTool.ViewModels
             }
         }
 
+        public ICommand InitializeViewControlsCommand
+        {
+            get
+            {
+                return new RelayCommandAsync(InitializeViewControls);
+            }
+        }
+
+
+
         #endregion Commands
 
         #region Methods
@@ -127,7 +136,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             //throw new NotImplementedException();
         }
 
-        private async void InitializeViewControls()
+        private Task InitializeViewControls(object obj)
         {
             throw new NotImplementedException();
         }

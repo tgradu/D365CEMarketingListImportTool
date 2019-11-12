@@ -7,6 +7,11 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="ExcelToCrmListWindow" Height="450" Width="800">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeViewControlsCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="90" Margin="10,10,0,0" VerticalAlignment="Top" Width="772"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="594,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"
