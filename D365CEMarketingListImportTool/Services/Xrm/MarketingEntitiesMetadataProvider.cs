@@ -19,7 +19,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
             this.crmServiceClient = crmServiceClient;
         }
 
-        public async Task<IEnumerable<TargetedEntityMetaData>> GetEntityMetaData()
+        public async Task<IEnumerable<TargetedEntityMetadata>> GetEntityMetaData()
         {
             var pickListData = await Task.Run(() => crmServiceClient.GetPickListElementFromMetadataEntity("list", "createdfromcode"));
 
@@ -27,7 +27,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
             return await GetEntityMetadataByTypeCode(pickListData, objectTypeCodes);
         }
 
-        public async Task<IEnumerable<AttributeMetadata>> GetAttributeMetadataForMarketingEntity(CrmServiceClient crmServiceClient, string marketingListEntityName)
+        public async Task<IEnumerable<AttributeMetadata>> GetAttributeMetadata(string marketingListEntityName)
         {
             var stringAttributes = await Task.Run(() => crmServiceClient.GetAllAttributesForEntity(marketingListEntityName));
 
@@ -35,7 +35,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
                 .OrderBy(attr => attr.LogicalName);
         }
 
-        private async Task<IEnumerable<TargetedEntityMetaData>> GetEntityMetadataByTypeCode(PickListMetaElement pickListData, int[] objectTypeCodes)
+        private async Task<IEnumerable<TargetedEntityMetadata>> GetEntityMetadataByTypeCode(PickListMetaElement pickListData, int[] objectTypeCodes)
         {
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression();
             entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.In, objectTypeCodes));
@@ -53,11 +53,11 @@ namespace D365CEMarketingListImportTool.Services.Xrm
             return AggregatePickListWithEntityMetaData(pickListData, retrieveMetadataChangesResponse);
         }
 
-        private IEnumerable<TargetedEntityMetaData> AggregatePickListWithEntityMetaData(PickListMetaElement pickListData, RetrieveMetadataChangesResponse retrieveMetadataChangesResponse)
+        private IEnumerable<TargetedEntityMetadata> AggregatePickListWithEntityMetaData(PickListMetaElement pickListData, RetrieveMetadataChangesResponse retrieveMetadataChangesResponse)
         {
             return from pickListItem in pickListData.Items
                    join entityMetadata in retrieveMetadataChangesResponse.EntityMetadata on pickListItem.PickListItemId equals entityMetadata.ObjectTypeCode.Value
-                   select new TargetedEntityMetaData(entityMetadata.LogicalName, pickListItem.DisplayLabel, entityMetadata.ObjectTypeCode.Value);
+                   select new TargetedEntityMetadata(entityMetadata.LogicalName, pickListItem.DisplayLabel, entityMetadata.ObjectTypeCode.Value);
         }
     }
 }

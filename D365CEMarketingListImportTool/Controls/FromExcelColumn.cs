@@ -2,7 +2,7 @@
 {
     public class FromExcelColumn
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public FromExcelColumn(string name)
         {

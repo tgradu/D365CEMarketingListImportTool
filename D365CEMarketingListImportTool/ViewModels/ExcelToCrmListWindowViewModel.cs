@@ -27,7 +27,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private MarketingExcel marketingExcel;
 
         private FromExcelColumn selectedExcelColumn;
-        private TargetedEntityMetaData selectedMarketingListEntity;
+        private TargetedEntityMetadata selectedMarketingListEntity;
 
         private readonly Loader excelLoader = new Loader();
 
@@ -71,8 +71,8 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public ObservableCollection<TargetedEntityMetaData> MarketingListEntities { get; set; } = new ObservableCollection<TargetedEntityMetaData>();
-        public TargetedEntityMetaData SelectedMarketingListEntity
+        public ObservableCollection<TargetedEntityMetadata> MarketingListEntities { get; set; } = new ObservableCollection<TargetedEntityMetadata>();
+        public TargetedEntityMetadata SelectedMarketingListEntity
         {
             get => selectedMarketingListEntity;
             set

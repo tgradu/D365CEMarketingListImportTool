@@ -68,7 +68,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\FromExcelColumn.cs" />
-    <Compile Include="Controls\TargetedEntityMetaData.cs" />
+    <Compile Include="Controls\TargetedEntityMetadata.cs" />
+    <Compile Include="Controls\TargetEntityAttributes.cs" />
     <Compile Include="Services\Excel\Loader.cs" />
     <Compile Include="Services\Excel\MarketingExcel.cs" />
     <Compile Include="Services\Login\ILogin.cs" />
