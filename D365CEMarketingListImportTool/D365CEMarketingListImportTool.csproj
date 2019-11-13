@@ -67,6 +67,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\DuplicatesHandlerSelector.cs" />
     <Compile Include="Controls\FromExcelColumn.cs" />
     <Compile Include="Controls\TargetedEntityMetadata.cs" />
     <Compile Include="Controls\TargetEntityAttributes.cs" />
