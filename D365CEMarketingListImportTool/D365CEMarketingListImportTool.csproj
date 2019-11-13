@@ -70,6 +70,7 @@
     <Compile Include="Controls\FromExcelColumn.cs" />
     <Compile Include="Controls\TargetedEntityMetadata.cs" />
     <Compile Include="Controls\TargetEntityAttributes.cs" />
+    <Compile Include="Controls\TargetEntityAttributesFactory.cs" />
     <Compile Include="Services\Excel\Loader.cs" />
     <Compile Include="Services\Excel\MarketingExcel.cs" />
     <Compile Include="Services\Login\ILogin.cs" />

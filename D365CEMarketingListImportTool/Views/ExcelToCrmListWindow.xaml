@@ -51,7 +51,11 @@
             </i:Interaction.Triggers>
         </ComboBox>
         <Label Content="To CRM Entity" HorizontalAlignment="Left" Margin="226,205,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1,0.5"/>
-        <ComboBox HorizontalAlignment="Left" Margin="415,236,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Margin="415,236,0,0" VerticalAlignment="Top" Width="120"
+            ItemsSource ="{Binding Path=TargetEntityAttributes}" 
+            SelectedItem="{Binding Path=SelectedEntityAttribute}" 
+            DisplayMemberPath="DisplayName" />
         <Label Content="To CRM Column" HorizontalAlignment="Left" Margin="430,205,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Search Only Active Records" HorizontalAlignment="Left" Margin="24,277,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

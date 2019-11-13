@@ -9,9 +9,11 @@ namespace D365CEMarketingListImportTool.Controls
     public class TargetEntityAttribute
     {
         public string DisplayName { get; }
-        public TargetEntityAttribute(string name)
+        public string LogicalName { get; }
+        public TargetEntityAttribute(string displayName, string logicalName)
         {
-            DisplayName = name;
+            DisplayName = displayName;
+            LogicalName = logicalName;
         }
     }
 }

@@ -25,11 +25,14 @@ namespace D365CEMarketingListImportTool.ViewModels
         private string connectedTo;
         private string excelPath;
         private MarketingExcel marketingExcel;
+        private readonly MarketingEntitiesMetadataProvider marketingEntitiesMetadataProvider;
 
         private FromExcelColumn selectedExcelColumn;
         private TargetedEntityMetadata selectedMarketingListEntity;
+        private TargetEntityAttribute selectedEntityAttribute;
 
         private readonly Loader excelLoader = new Loader();
+        private readonly TargetEntityAttributesFactory targetEntityAttributesFactory = new TargetEntityAttributesFactory();
 
         #endregion Fields
 
@@ -81,6 +84,16 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
+        public ObservableCollection<TargetEntityAttribute> TargetEntityAttributes { get; set; } = new ObservableCollection<TargetEntityAttribute>();
+        public TargetEntityAttribute SelectedEntityAttribute
+        {
+            get => selectedEntityAttribute;
+            set
+            {
+                selectedEntityAttribute = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion Properties
 
@@ -90,6 +103,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             crmServiceClient = xrmContext.CrmServiceClient;
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
+            marketingEntitiesMetadataProvider = new MarketingEntitiesMetadataProvider(crmServiceClient);
         }
 
         #endregion Constructors
@@ -127,15 +141,24 @@ namespace D365CEMarketingListImportTool.ViewModels
             InitializeExcelControlls(marketingExcel);
         }
 
-        private Task FetchEntityAttributes(object obj)
+        private async Task FetchEntityAttributes(object obj)
         {
-            return Task.CompletedTask;
-            //throw new NotImplementedException();
+            TargetEntityAttributes.Clear();
+
+            var atrributes = await marketingEntitiesMetadataProvider.GetAttributeMetadata(SelectedMarketingListEntity.PlatformName);
+            IEnumerable<TargetEntityAttribute> targetEntityAttributes = targetEntityAttributesFactory.Create(atrributes);
+
+            foreach(TargetEntityAttribute targetEntityAttribute in targetEntityAttributes)
+            {
+                TargetEntityAttributes.Add(targetEntityAttribute);
+            }
+
+            SelectedEntityAttribute = TargetEntityAttributes.FirstOrDefault();
         }
 
         private async Task InitializeViewControls(object obj)
         {
-            MarketingEntitiesMetadataProvider marketingEntitiesMetadataProvider = new MarketingEntitiesMetadataProvider(crmServiceClient);
+            
             var crmEntities = await marketingEntitiesMetadataProvider.GetEntityMetaData();
 
             foreach(var marketingEntity in crmEntities)
