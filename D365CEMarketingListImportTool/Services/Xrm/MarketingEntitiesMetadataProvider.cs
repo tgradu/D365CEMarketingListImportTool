@@ -30,7 +30,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
         {
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression();
             entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.In, objectTypeCodes));
-            entityQueryExpression.Properties = new MetadataPropertiesExpression("LogicalName");
+            entityQueryExpression.Properties = new MetadataPropertiesExpression("LogicalName", "ObjectTypeCode");
 
             RetrieveMetadataChangesRequest retrieveMetadataChangesRequest = new RetrieveMetadataChangesRequest
             {
@@ -48,7 +48,7 @@ namespace D365CEMarketingListImportTool.Services.Xrm
         {
             IEnumerable<TargetedEntityMetaData> joinMetaDataItemsQuery =
                 from pickListItem in pickListData.Items
-                join entityMetadata in retrieveMetadataChangesResponse.EntityMetadata on pickListItem.PickListItemId equals entityMetadata.ObjectTypeCode
+                join entityMetadata in retrieveMetadataChangesResponse.EntityMetadata on pickListItem.PickListItemId equals entityMetadata.ObjectTypeCode.Value
                 select new TargetedEntityMetaData(entityMetadata.LogicalName, pickListItem.DisplayLabel, entityMetadata.ObjectTypeCode.Value);
 
             return joinMetaDataItemsQuery.ToList();

@@ -109,7 +109,6 @@ namespace D365CEMarketingListImportTool.ViewModels
                 return new RelayCommandAsync(FetchEntityAttributes);
             }
         }
-
         public ICommand InitializeViewControlsCommand
         {
             get
@@ -117,8 +116,6 @@ namespace D365CEMarketingListImportTool.ViewModels
                 return new RelayCommandAsync(InitializeViewControls);
             }
         }
-
-
 
         #endregion Commands
 
@@ -136,9 +133,15 @@ namespace D365CEMarketingListImportTool.ViewModels
             //throw new NotImplementedException();
         }
 
-        private Task InitializeViewControls(object obj)
+        private async Task InitializeViewControls(object obj)
         {
-            throw new NotImplementedException();
+            MarketingEntitiesMetadataProvider marketingEntitiesMetadataProvider = new MarketingEntitiesMetadataProvider(crmServiceClient);
+            var crmEntities = await marketingEntitiesMetadataProvider.GetEntityMetaData();
+
+            foreach(var marketingEntity in crmEntities)
+            {
+                MarketingListEntities.Add(marketingEntity);
+            }
         }
 
         private void InitializeExcelControlls(MarketingExcel marketingExcel)
