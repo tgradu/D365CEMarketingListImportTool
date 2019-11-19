@@ -138,7 +138,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private void LoadExcel(object obj)
         {
             marketingExcel = excelLoader.Load();
-            InitializeExcelControlls(marketingExcel);
+            InitializeExcelControls(marketingExcel);
         }
 
         private async Task FetchEntityAttributes(object obj)
@@ -167,7 +167,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             }
         }
 
-        private void InitializeExcelControlls(MarketingExcel marketingExcel)
+        private void InitializeExcelControls(MarketingExcel marketingExcel)
         {
             ExcelPath = marketingExcel.Path;
 
