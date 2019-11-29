@@ -1,6 +1,7 @@
 ﻿using D365CEMarketingListImportTool.Controls;
 using D365CEMarketingListImportTool.MVVMFramework;
 using D365CEMarketingListImportTool.Services.Excel;
+using D365CEMarketingListImportTool.Services.UI;
 using D365CEMarketingListImportTool.Services.Xrm;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
@@ -30,9 +31,9 @@ namespace D365CEMarketingListImportTool.ViewModels
         private FromExcelColumn selectedExcelColumn;
         private TargetedEntityMetadata selectedMarketingListEntity;
         private TargetEntityAttribute selectedEntityAttribute;
+        private DuplicatesHandlerSelector selectedDuplicatesHandler;
 
         private readonly Loader excelLoader = new Loader();
-        private readonly TargetEntityAttributesFactory targetEntityAttributesFactory = new TargetEntityAttributesFactory();
 
         #endregion Fields
 
@@ -94,6 +95,16 @@ namespace D365CEMarketingListImportTool.ViewModels
                 NotifyPropertyChanged();
             }
         }
+        public ObservableCollection<DuplicatesHandlerSelector> DuplicatesHandlerSelectors { get; set; }
+        public DuplicatesHandlerSelector SelectedDuplicatesHandler
+        {
+            get => selectedDuplicatesHandler;
+            set
+            {
+                selectedDuplicatesHandler = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion Properties
 
@@ -104,6 +115,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             LoggedUser = xrmContext.LoggedUser;
             ConnectedTo = crmServiceClient.ConnectedOrgFriendlyName;
             marketingEntitiesMetadataProvider = new MarketingEntitiesMetadataProvider(crmServiceClient);
+            DuplicatesHandlerSelectors = DuplicatesHandlerSelectorsFactory.Create();
         }
 
         #endregion Constructors
@@ -146,7 +158,7 @@ namespace D365CEMarketingListImportTool.ViewModels
             TargetEntityAttributes.Clear();
 
             var atrributes = await marketingEntitiesMetadataProvider.GetAttributeMetadata(SelectedMarketingListEntity.PlatformName);
-            IEnumerable<TargetEntityAttribute> targetEntityAttributes = targetEntityAttributesFactory.Create(atrributes);
+            IEnumerable<TargetEntityAttribute> targetEntityAttributes = TargetEntityAttributesFactory.Create(atrributes);
 
             foreach(TargetEntityAttribute targetEntityAttribute in targetEntityAttributes)
             {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace D365CEMarketingListImportTool.Controls
 {
-    public class TargetEntityAttributesFactory
+    public static class TargetEntityAttributesFactory
     {
-        public IEnumerable<TargetEntityAttribute> Create(IEnumerable<AttributeMetadata> attributeMetadatas)
+        public static IEnumerable<TargetEntityAttribute> Create(IEnumerable<AttributeMetadata> attributeMetadatas)
         {
             foreach (AttributeMetadata attributeMetadata in attributeMetadatas)
             {
@@ -15,7 +15,7 @@ namespace D365CEMarketingListImportTool.Controls
             }
         }
 
-        private string ExtractLabel(AttributeMetadata attributeMetadata, string logicalName)
+        private static string ExtractLabel(AttributeMetadata attributeMetadata, string logicalName)
         {
             return attributeMetadata.DisplayName.UserLocalizedLabel == null || 
                 string.IsNullOrEmpty(attributeMetadata.DisplayName.UserLocalizedLabel.Label) ? 
