@@ -25,6 +25,7 @@ namespace D365CEMarketingListImportTool.ViewModels
         private string loggedUser;
         private string connectedTo;
         private string excelPath;
+        private string marketingListName;
         private MarketingExcel marketingExcel;
         private bool searchActiveOnly;
         private readonly MarketingEntitiesMetadataProvider marketingEntitiesMetadataProvider;
@@ -72,6 +73,15 @@ namespace D365CEMarketingListImportTool.ViewModels
             set
             {
                 searchActiveOnly = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string MarketingListName
+        {
+            get => marketingListName;
+            set
+            {
+                marketingListName = value;
                 NotifyPropertyChanged();
             }
         }
