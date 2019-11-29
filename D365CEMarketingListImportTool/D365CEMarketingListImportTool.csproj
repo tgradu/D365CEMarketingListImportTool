@@ -75,6 +75,7 @@
     <Compile Include="Services\Excel\Loader.cs" />
     <Compile Include="Services\Excel\MarketingExcel.cs" />
     <Compile Include="Services\Login\ILogin.cs" />
+    <Compile Include="Services\UI\DuplicatesHandlerSelectorsFactory.cs" />
     <Compile Include="Services\Xrm\ConnectionDetails.cs" />
     <Compile Include="Services\Xrm\ICrmServiceClientBuilder.cs" />
     <Compile Include="Services\Xrm\MarketingEntitiesMetadataProvider.cs" />
@@ -133,7 +134,6 @@
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\D365Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
